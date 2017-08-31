@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="E:\maven_lib\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar"/>
+
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <property name="javaFileEncoding" value="UTF-8"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.0.20.108:3306/CROSS_BORDER"
+                        userId="baofoo"
+                        password="mandao@64//">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.baofu.cbpayservice.dal.models" targetProject="src/main/java/">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.baofu.cbpayservice.dal.mapper"
+                             targetProject="src/main/java/">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="T_ORDER_DECLARE" domainObjectName="TOrderDeclare"
+               enableInsert ="true"
+               enableSelectByPrimaryKey ="true"
+               enableUpdateByPrimaryKey ="false"
+               enableSelectByExample ="false"
+               enableDeleteByPrimaryKey ="false"
+               enableDeleteByExample ="false"
+               enableCountByExample ="false"
+               enableUpdateByExample ="false"
+               selectByPrimaryKeyQueryId ="false"
+               selectByExampleQueryId ="false" >
+        </table>
+
+
+    <!--
+            <table tableName="fi_b2cbank_order_addition" domainObjectName="FiB2cbankOrderAddition" >
+                <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            </table>
+    
+            <table tableName="fi_platform_order" domainObjectName="FiPlatformOrder" >
+                <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            </table>
+    
+            <table tableName="fi_platform_order_addition" domainObjectName="FiPlatformOrderAddition" >
+                <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            </table>
+    
+            <table tableName="fi_gw_express_order_card" domainObjectName="FiGwExpressOrderCard" >
+                <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            </table>
+    
+            <table tableName="fi_gw_business_order_addition" domainObjectName="FiGwBusinessOrderAddition" >
+                <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            </table>
+    
+            <table tableName="fi_gw_business_order" domainObjectName="FiGwBusinessOrder" >
+                <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            </table>
+    
+            <table tableName="T_CUSTOMS_DISTRICT_PAY_DATA_RECORD" domainObjectName="TCustomsDistrictPayDataRecord" >
+               <columnOverride column="DATE_FIELD" property="startDate" /><ignoreColumn column="FRED" /><columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+            </table>
+    
+            <table tableName="T_CUSTOMS_ADMIN_PAY_DATA_RECORD" domainObjectName="TCustomsAdminPayDataRecord" >
+                <columnOverride column="DATE_FIELD" property="startDate" /><ignoreColumn column="FRED" /><columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+            </table>
+    
+            <table tableName="T_CUSTOMS_PAY_DATA_MER_APPLY_RECORD" domainObjectName="TCustomsPayDataMerApplyRecord" >
+                <columnOverride column="DATE_FIELD" property="startDate" /><ignoreColumn column="FRED" /><columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+            </table>
+            <table tableName="T_CUSTOMS_DISTRICT_CODE" domainObjectName="TCustomsDistrictCode" >
+                <columnOverride column="DATE_FIELD" property="startDate" /><ignoreColumn column="FRED" /><columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />
+            </table>
+    -->
+
+</context>
+        </generatorConfiguration>
