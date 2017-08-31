@@ -66,26 +66,31 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
 
         context.getCommentGenerator().addRootComment(answer);
 
+        //ResultMap 映射关系
         addResultMapWithoutBLOBsElement(answer);
-        addResultMapWithBLOBsElement(answer);
-        addExampleWhereClauseElement(answer);
-        addMyBatis3UpdateByExampleWhereClauseElement(answer);
+        //查询字段
         addBaseColumnListElement(answer);
+        //根据主键查询数据
+        addSelectByPrimaryKeyElement(answer);
+        //插入数据
+        addInsertElement(answer);
+        //根据主键更新数据
+        addUpdateByPrimaryKeySelectiveElement(answer);
+
+/*        addExampleWhereClauseElement(answer);
+        addMyBatis3UpdateByExampleWhereClauseElement(answer);
         addBlobColumnListElement(answer);
         addSelectByExampleWithBLOBsElement(answer);
         addSelectByExampleWithoutBLOBsElement(answer);
-        addSelectByPrimaryKeyElement(answer);
         addDeleteByPrimaryKeyElement(answer);
         addDeleteByExampleElement(answer);
-        addInsertElement(answer);
         addInsertSelectiveElement(answer);
         addCountByExampleElement(answer);
         addUpdateByExampleSelectiveElement(answer);
         addUpdateByExampleWithBLOBsElement(answer);
         addUpdateByExampleWithoutBLOBsElement(answer);
-        addUpdateByPrimaryKeySelectiveElement(answer);
         addUpdateByPrimaryKeyWithBLOBsElement(answer);
-        addUpdateByPrimaryKeyWithoutBLOBsElement(answer);
+        addUpdateByPrimaryKeyWithoutBLOBsElement(answer);*/
 
         return answer;
     }

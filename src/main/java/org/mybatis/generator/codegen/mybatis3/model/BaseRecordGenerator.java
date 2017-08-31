@@ -60,6 +60,13 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
         FullyQualifiedJavaType type = new FullyQualifiedJavaType(
                 introspectedTable.getBaseRecordType());
         TopLevelClass topLevelClass = new TopLevelClass(type);
+        //添加lombok
+        topLevelClass.addImportedType("lombok.Getter");
+        topLevelClass.addImportedType("lombok.Setter");
+        topLevelClass.addImportedType("lombok.ToString");
+        topLevelClass.addAnnotation("@Setter");
+        topLevelClass.addAnnotation("@Getter");
+        topLevelClass.addAnnotation("@ToString");
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addJavaFileComment(topLevelClass);
 
@@ -99,7 +106,8 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
                 topLevelClass.addImportedType(field.getType());
             }
 
-   /*         Method method = getJavaBeansGetter(introspectedColumn, context, introspectedTable);
+            //生成GET和SET方法
+           /* Method method = getJavaBeansGetter(introspectedColumn, context, introspectedTable);
             if (plugins.modelGetterMethodGenerated(method, topLevelClass,
                     introspectedColumn, introspectedTable,
                     Plugin.ModelClassType.BASE_RECORD)) {

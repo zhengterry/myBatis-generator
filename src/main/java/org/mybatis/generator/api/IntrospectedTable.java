@@ -873,10 +873,12 @@ public abstract class IntrospectedTable {
         sb.append("Key"); //$NON-NLS-1$
         setPrimaryKeyType(sb.toString());
 
+        //model 文件名称添加Do后缀
         sb.setLength(0);
         sb.append(pakkage);
         sb.append('.');
         sb.append(fullyQualifiedTable.getDomainObjectName());
+        sb.append("Do"); //$NON-NLS-1$
         setBaseRecordType(sb.toString());
 
         sb.setLength(0);
