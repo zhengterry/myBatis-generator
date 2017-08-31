@@ -534,12 +534,12 @@ public abstract class IntrospectedTable {
         setSelectAllStatementId("selectAll"); //$NON-NLS-1$
         setSelectByExampleStatementId("selectByExample"); //$NON-NLS-1$
         setSelectByExampleWithBLOBsStatementId("selectByExampleWithBLOBs"); //$NON-NLS-1$
-        setSelectByPrimaryKeyStatementId("selectByPrimaryKey"); //$NON-NLS-1$
+        setSelectByPrimaryKeyStatementId("selectByKey"); //$NON-NLS-1$
         setUpdateByExampleStatementId("updateByExample"); //$NON-NLS-1$
         setUpdateByExampleSelectiveStatementId("updateByExampleSelective"); //$NON-NLS-1$
         setUpdateByExampleWithBLOBsStatementId("updateByExampleWithBLOBs"); //$NON-NLS-1$
         setUpdateByPrimaryKeyStatementId("updateByPrimaryKey"); //$NON-NLS-1$
-        setUpdateByPrimaryKeySelectiveStatementId("updateByPrimaryKeySelective"); //$NON-NLS-1$
+        setUpdateByPrimaryKeySelectiveStatementId("updateByKey"); //$NON-NLS-1$
         setUpdateByPrimaryKeyWithBLOBsStatementId("updateByPrimaryKeyWithBLOBs"); //$NON-NLS-1$
         setBaseResultMapId("BaseResultMap"); //$NON-NLS-1$
         setResultMapWithBLOBsId("ResultMapWithBLOBs"); //$NON-NLS-1$
