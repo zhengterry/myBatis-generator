@@ -1,47 +1,36 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2017 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.codegen.mybatis3.model;
-
-import static org.mybatis.generator.internal.util.JavaBeansUtil.getJavaBeansField;
-import static org.mybatis.generator.internal.util.JavaBeansUtil.getJavaBeansGetter;
-import static org.mybatis.generator.internal.util.JavaBeansUtil.getJavaBeansSetter;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.FullyQualifiedTable;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.Plugin;
-import org.mybatis.generator.api.dom.java.CompilationUnit;
-import org.mybatis.generator.api.dom.java.Field;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.JavaVisibility;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.Parameter;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.codegen.AbstractJavaGenerator;
-import org.mybatis.generator.codegen.RootClassInfo;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import static org.mybatis.generator.internal.util.JavaBeansUtil.getJavaBeansField;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
- * 
  * @author Jeff Butler
- * 
  */
 public class BaseRecordGenerator extends AbstractJavaGenerator {
 
@@ -51,6 +40,7 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
 
     @Override
     public List<CompilationUnit> getCompilationUnits() {
+        List<String> fieldNameList = new ArrayList<String>();
         FullyQualifiedTable table = introspectedTable.getFullyQualifiedTable();
         progressCallback.startTask(getString(
                 "Progress.8", table.toString())); //$NON-NLS-1$
@@ -66,7 +56,7 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
         topLevelClass.addImportedType("lombok.ToString");
         topLevelClass.addAnnotation("@Setter");
         topLevelClass.addAnnotation("@Getter");
-        topLevelClass.addAnnotation("@ToString");
+        topLevelClass.addAnnotation("@ToString(callSuper = true)");
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addJavaFileComment(topLevelClass);
 
@@ -92,11 +82,29 @@ public class BaseRecordGenerator extends AbstractJavaGenerator {
         }
 
         String rootClass = getRootClass();
+        //添加继承基础Do
+        if (rootClass != null) {
+            Class<?> clz = null;
+            try {
+                clz = Class.forName(rootClass);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            java.lang.reflect.Field[] fields = clz.getDeclaredFields();
+            for (int i = 0; i < fields.length; i++) {
+                fieldNameList.add(fields[i].getName());
+            }
+        }
+
         for (IntrospectedColumn introspectedColumn : introspectedColumns) {
-            if (RootClassInfo.getInstance(rootClass, warnings)
-                    .containsProperty(introspectedColumn)) {
+            String propertyName = introspectedColumn.getJavaProperty();
+            if (fieldNameList.contains(propertyName)) {
                 continue;
             }
+            /*if (RootClassInfo.getInstance(rootClass, warnings)
+                    .containsProperty(introspectedColumn)) {
+                continue;
+            }*/
 
             Field field = getJavaBeansField(introspectedColumn, context, introspectedTable);
             if (plugins.modelFieldGenerated(field, topLevelClass,
